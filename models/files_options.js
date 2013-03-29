@@ -1,8 +1,7 @@
 var 
 	mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
-	helpers = require('../helpers/helpers.js'),
-	categoriesSchema = require('./categories').schema
+	helpers = require('../lib/helpers')
 ;
 
 /*
