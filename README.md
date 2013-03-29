@@ -1,3 +1,11 @@
 npm install && node app.js
 
-go to /admin
+mongodb collections (refer to /models):
+
+	-categories
+	-comments
+	-files
+	-files_options
+	-sections
+	-users
+	
