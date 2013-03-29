@@ -1,4 +1,5 @@
-npm install && node app.js
+1. npm install
+2. node app.js
 
 mongodb collections (refer to /models):
 
