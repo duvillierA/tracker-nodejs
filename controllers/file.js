@@ -11,18 +11,20 @@ exports.all = function(req, res, next){
 	Categories.find(function(err, categories){
 		res.categories = [];
 		async.eachSeries(categories, function(category, next){
-    		Files.find()
-			.where('categories').elemMatch({ _id: category.id})
-	    	.sort({created: 'desc'})
-	    	.limit(10).exec(function(err, files){
-				if (err) { return next(err); };
-				res.categories.push({
-					name : category.name,
-					id : category.id,
-					files : files
+			if(!category.hidden && category.index.visible){
+	    		Files.find()
+				.where('categories').elemMatch({ _id: category.id})
+		    	.sort({created: 'desc'})
+		    	.limit(10).exec(function(err, files){
+					if (err) { return next(err); };
+					res.categories.push({
+						name : category.name,
+						id : category.id,
+						files : files
+					});
+					next(null);
 				});
-				next(null);
-			});
+			}
 		}, function(err){
 			if (err) { return next(err); };
 			next(null);
@@ -44,6 +46,18 @@ exports.new = function(req, res, next){
 				if (err) { return next(err); }
 				next(null, sections);
 			});
+		},
+		formats : function (next) {
+			FilesOptions.find({type:'format'}, function(err, formats){
+				if (err) { return next(err); }
+				next(null, formats);
+			});
+		},
+		qualities : function (next) {
+			FilesOptions.find({type:'quality'}, function(err, qualities){
+				if (err) { return next(err); }
+				next(null, qualities);
+			});
 		}
 	}, function (err, result) {
 		if (err) { return next(err); }   
@@ -61,21 +75,45 @@ exports.read = function(req, res, next){
 }
 
 exports.create = function(req, res, next){
+
+	var 
+		_title = req.param('title'),
+		_body = req.param('body'),
+		_category = req.param('category'),
+		_sections = req.param('sections'),
+		_format = req.param('format'),
+		_quality = req.param('quality')
+	; 
+
 	async.waterfall([
 	    function(next){
-			Categories.findById(req.param('categories'),function(err, category){
-				if (err) { return next(err); }
-				next(null, category);
-			});
-	    },
-	    function(category, next){
 			Files.create({
-				title:req.param('title'),
-				body:req.param('body'),
-				categories:[category],
-				createdAt:Date.now()
+				title: _title,
+				body: _body,
+				category: _category,
+				sections: _sections,
+				format: _format,
+				quality: _quality,
+				createdAt: Date.now(),
+				creator: req.user
 			},function(err, file){
-				if (err) { return next(err); }
+				if (err) { 
+					if(err.name =='ValidationError') {
+						// handle error
+						res.field = {
+							title: _title,
+							body: _body,
+							category: _category,
+							sections: _sections,
+							format: _format,
+							quality: _quality
+						};
+						res.errors = err.errors;
+					}else{
+						return next(err);
+					}
+				 }
+
 				next(null, file);
 			});
 	    }

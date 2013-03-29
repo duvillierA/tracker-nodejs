@@ -17,7 +17,8 @@ exports.all = function(req, res, next){
 		},
 		sections : function (next) {
 			Sections.find()
-			.populate('parent')
+			.populate('categories')
+			.sort({categories:'asc', name:'asc'})
 			.exec(function(err, sections){
 				if (err) { return next(err); }
 				next(null, sections);
@@ -32,9 +33,9 @@ exports.all = function(req, res, next){
 		files_options : function (next) {
 			FilesOptions.find()
 			.populate('categories')
-			.exec(function(err, files_options){
+			.exec(function(err, options){
 				if (err) { return next(err); }
-				next(null, files_options);
+				next(null, options);
 			});
 		}
 	}, function (err, result) {

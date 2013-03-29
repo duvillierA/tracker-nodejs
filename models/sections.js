@@ -1,17 +1,15 @@
 var 
 	mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
-	helpers = require('../lib/helpers'),
-	categoriesSchema = require('./categories').schema
+	helpers = require('../lib/helpers')
 ;
-
 
 /*
 SECTIONS
 */
 
 	var sectionsSchema = new Schema({
-		parent : { type: Schema.Types.ObjectId, ref: 'categories' },
+		categories : { type: Schema.Types.ObjectId, ref: 'categories' },
 		name : { type : String, set : helpers.capitalize },
 		slug :  { type : String, lowercase: true, trim: true},
 		ancestors : [{ type: Schema.Types.ObjectId, ref: 'categories' }],

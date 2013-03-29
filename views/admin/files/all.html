@@ -8,11 +8,13 @@
 	<div class="widget-content">
 
 	{{#if files}}
-		<table class="table table-bordered table-striped table-condensed">
+		<table class="table table-bordered table-striped table-condensed table-hover dataTable">
 			<thead>
 				<tr>
 					<th>Category</th>
 					<th>Section</th>
+					<th>Format</th>
+					<th>Quality</th>
 					<th>Title</th>
 					<th>Creator</th>
 					<th>Created</th>
@@ -25,15 +27,14 @@
 				{{#if this}}
 					<tr>
 						<td>
-							{{#if categories}}
-								{{#each categories}}
-									{{#if this}}
-										{{name}}
-									{{/if}}
-								{{/each}}
+							{{#if category}}
+								{{#with category}}
+									{{name}}
+								{{/with}}
 							{{/if}}
 						</td>
 						<td>
+							
 							{{#if sections}}
 								{{#each sections}}
 									{{#if this}}
@@ -43,13 +44,27 @@
 							{{/if}}
 						</td>
 						<td>
+							{{#if format}}
+								{{#with format}}
+									{{name}}
+								{{/with}}
+							{{/if}}
+						</td>
+						<td>
+							{{#if quality}}
+								{{#with quality}}
+									{{name}}
+								{{/with}}
+							{{/if}}
+						</td>
+						<td>
 							{{#if title}}
-								<strong>{{title}}</strong>
+								{{title}}
 							{{/if}}
 						</td>
 						<td>
 							{{#if creator}}
-								{{creator}}
+								{{creator.username}}
 							{{/if}}
 						</td>
 						<td>

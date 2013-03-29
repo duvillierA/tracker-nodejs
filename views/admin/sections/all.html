@@ -10,7 +10,7 @@
 	<div class="widget-content">
 
 	{{#if sections}}
-		<table class="table table-bordered table-striped table-condensed">
+		<table class="table table-bordered table-striped table-condensed table-hover dataTable">
 			<thead>
 				<tr>
 					<th>Category</th>
@@ -23,7 +23,11 @@
 			{{#each sections}}
 					<tr>
 						<td>
-							{{parent.name}}
+							{{#if categories}}
+								{{#with categories}}
+									{{name}}
+								{{/with}}
+							{{/if}}
 						</td>
 						<td>
 							{{name}}

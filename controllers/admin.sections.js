@@ -5,7 +5,10 @@ var
 ;
 
 exports.all = function(req, res, next){
-	Sections.find(function(err, sections){
+	Sections.find()
+	.populate('categories')
+	.sort({categories:'asc', name:'asc'})
+	.exec(function(err, sections){
 		if (err) { return next(err); }
 		res.data = {sections:sections};
 		next(null);

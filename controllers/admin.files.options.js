@@ -20,11 +20,25 @@ exports.create = function(req, res, next){
 	var categories = [];
 	async.waterfall([
 	    function(next){
+	    	var categories = [];
+	    	async.each(req.param('categories'), function(category_id, next){
+				Categories.findById(category_id, function(err, category){
+					if (err) { return next(err); };
+					categories.push(category);
+					next(null);
+				});
+			}, function(err){
+				if (err) { return next(err); };
+				next(null, categories);
+			    // if any of the saves produced an error, err would equal that error
+			});
+	    },
+	    function(categories, next){
 			FilesOptions.create({
 				name:req.param('name'),
 				infos:req.param('infos'),
 				type:req.param('type'),
-				categories:req.param('categories')
+				categories:categories
 			},function(err, options){
 				if (err) { return next(err); }
 				next(null, options);

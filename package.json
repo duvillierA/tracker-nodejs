@@ -9,7 +9,7 @@
     "express": "3.1.0",
     "less-middleware": "*",
     "hbs": "~2.0.2",
-    "mongoose": "~3.5.8",
+    "mongoose": "~3.6.1",
     "async": "~0.2.6",
     "bcrypt-nodejs": "0.0.3",
     "validator": "~0.4.28",
