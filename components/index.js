@@ -23,24 +23,24 @@ module.exports = function (map) {
 	map.get('/', file.all, function(req, res){
 		res.render('torrent/all', {categories:res.categories});
 	});
-	map.get('/torrent/new', file.new, function(req, res){
+	map.get('/files/new', file.new, function(req, res){
 		res.render('torrent/new', {
 			categories: res.data.categories,
 			sections: res.data.sections
 		});
 	});
-	map.post('/torrent/new', file.create, function(req, res){
+	map.post('/files/new', file.create, function(req, res){
 		req.flash('success', res.data.file.title+', is now created!');
 		res.redirect('/');
 	});
-	map.get('/torrent/:id', file.read, function(req, res){
+	map.get('/files/:id', file.read, function(req, res){
 		res.render('torrent/show', {file:res.file});
 	});
-	map.put('/torrent/:id', file.update, function(req, res){
+	map.put('/files/:id', file.update, function(req, res){
 		req.flash('success', res.data.file.title+', is now updated!');
 		res.render('torrent/show', {file:res.data});
 	});
-	map.delete('/torrent/:id', file.delete, function(req, res){
+	map.delete('/files/:id', file.delete, function(req, res){
 		req.flash('success', res.data.file.title+', is now deleted!');
 		res.redirect('/');
 	});
