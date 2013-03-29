@@ -17,4 +17,8 @@
 <li>sections</li>
 <li>users</li>
 </ul>
+
+<h2>Admin Panel</h2>
+
+Manage all categories, users, files...
 	
