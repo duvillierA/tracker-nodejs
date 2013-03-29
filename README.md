@@ -20,5 +20,7 @@
 
 <h2>Admin Panel</h2>
 
+<p>(refer to /admin):</p>
+
 Manage all categories, users, files...
 	
