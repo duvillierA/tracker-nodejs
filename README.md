@@ -26,3 +26,12 @@ Aiming to easily manage huge numbers of files.
 
 Manage all categories, users, files...
 	
+<h2>TODO LIST</h2>
+
+<ul>
+<li>files comments</li>
+<li>app optimization</li>
+<li>admin : special encureAuthentification</li>
+<li>admin : modify/delete actions</li>
+</ul>
+	
