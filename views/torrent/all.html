@@ -1,18 +1,18 @@
-<h1>Files</h1>
-<a href="/torrent/new" class="btn btn-primary fr">new</a>
+<div class="clearfix">
+<h1 class="pull-left">Files</h1>
+<a href="/files/new" class="btn btn-primary pull-right">new</a>
+</div>
 
 {{#if categories}}
 	{{#each categories}}
 		{{#if this}}
-			<div class="row">
-				<div class="span12">
-					<h2>{{name}} <small>{{id}}</small></h2>
-				</div>
+		<div class="widget">
+								
+			<div class="widget-header clearfix">
+				<h3 class="title">{{name}} <small>{{id}}</small></h3>
+			</div> <!-- /widget-header -->
 
-				<div class="pull-right">
-					<a href="/category/{{id}}" class="btn btn-default">voir</a>
-				</div>
-			</div>
+			<div class="widget-body">
 			{{#if files}}
 				<table class="table table-bordered table-striped table-condensed">
 					<thead>
@@ -31,7 +31,7 @@
 								{{createdAt}}
 							</td>
 							<td>
-								<a href="/torrent/{{id}}">{{title}}</a>
+								<a href="/files/{{id}}">{{title}}</a>
 							</td>
 							<td>
 								{{body}}
@@ -55,9 +55,11 @@
 			{{else}}
 				<div class="alert alert-info">
 				  <strong>Aucun résultats</strong>
-				  ajouter un torrent
+				  ajouter un fichier
 				</div>
 			{{/if}}
+			</div>
+		</div>
 		{{/if}}
 	{{/each}}
 {{/if}}
