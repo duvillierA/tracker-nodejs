@@ -1,5 +1,7 @@
 <h1>Files tracker</h1>
 
+Aiming to easily manage huge numbers of files.
+
 <ol>
 <li> npm install</li>
 <li> node app.js</li>
