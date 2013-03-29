@@ -1,70 +1,34 @@
-/**
- * Module dependencies.
- */
+var express = require('express');
 
-var express = require('express')
-  , hbs = require('hbs')
-  , mongoose = require('mongoose')
-  , flash = require('connect-flash')
-  , passport = require('passport')
-  , routes = require('./config/routes')
-  , http = require('http')
-  , path = require('path')
-  , auth = require('./middleware/auth')()
-  , partials = require('./helpers/partials')
-  , breadcrumb = require('./helpers/breadcrumb')
-  ;
+// Globals
+/*_ = require('underscore');*/
 
-mongoose.connect('localhost', 'tracker');
+// Base libs
+var config = require('./lib/config');
+var middleware = require('./lib/middleware');
+var mongoose = require('./lib/mongoose');
+var hbs = require('./lib/hbs');
+var helpers = require('./lib/helpers');
+var components = require('./components');
 
-var app = express();
+function createApp(config) {
+    var app = express();
 
-app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'html');
-  app.engine('html', require('hbs').__express);
-  app.use(function(req, res, next){
-    var isAdmin = /^\/admin*/.test(req.url);
-    if(isAdmin) {
-      app.set('view options', {
-        layout: 'admin/layout_admin'
-      });
-    }
-    next();
-  });
-  app.use(express.favicon());
-  app.use(express.logger('dev'));
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(express.cookieParser('keyboard cat'));
-  app.use(express.session({ secret: 'keyboard cat' }));
-  app.use(flash());
-  app.use(passport.initialize());
-  app.use(passport.session());
-  // Give Views/Layouts direct access to session data.
-  app.use(function(req, res, next){
-    res.locals.session = req.session;
-    if(req.user) {
-      res.locals.session.user = req.user;
-    }else{
-      if(res.locals.session.user) delete res.locals.session.user;
-    }
-    next();
-  });
-  app.use(breadcrumb);
-  app.use(app.router);
-  app.use(require('less-middleware')({ src: __dirname + '/public' }));
-  app.use(express.static(path.join(__dirname, 'public')));
-  partials(app);
-});
+    app.set('config', config);
+    app.set('views', __dirname + '/views');
+    // NoSql DB
+    mongoose(app);
+    /* Cookie && session && herror handler...*/
+    middleware(app, helpers);
+    /* Partials && view helpers*/
+    hbs(app);
+    components(app)
 
-app.configure('development', function(){
-  app.use(express.errorHandler());
-});
+    return app;
+}
 
-routes(app, passport);
+// Expose the app
+var app = module.exports = createApp(config);
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
-});
+app.listen(config.http_port);
+console.log("Listening on", config.http_port);
