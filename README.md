@@ -5,7 +5,10 @@
 <li> node app.js</li>
 </oL>
 
-mongodb collections (refer to /models):
+<h2>Mongodb collections</h2>
+
+<p>(refer to /models):</p>
+
 <ul>
 <li>categories</li>
 <li>comments</li>
