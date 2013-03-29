@@ -1,0 +1,92 @@
+{{#unless session.user}}
+	<div class="alert {{#if errors.creator}}alert-error{{else}}alert-info{{/if}}">
+		An account is required to create a document. Please
+		<a href="/sign"><strong>register or login</strong>.</a>
+	</div>
+{{/unless}}
+
+<form method="post" action="/files/new" class="form-horizontal">
+	<div class="control-group {{#if errors.title}}error{{/if}}">
+		<label class="control-label" for="title">Title</label>
+		<div class="controls">
+			<input type="text" name="title" id="title" value="{{field.title}}" class="input-xxlarge" autofocus/>
+			<p class="help-block">{{#if errors.title}}{{errors.title.type}}{{/if}}</p>
+		</div>
+	</div>
+	<div class="control-group {{#if errors.body}}error{{/if}}">
+		<label class="control-label" for="body">Body</label>
+		<div class="controls">
+			<textarea type="text" name="body" id="body" rows="10" class="input-xxlarge">{{field.body}}</textarea>
+			<p class="help-block">{{#if errors.body}}{{errors.body.type}}{{/if}}</p>
+		</div>
+	</div>
+	<div class="control-group {{#if errors.category}}error{{/if}}">
+		<label class="control-label" for="category">Category</label>
+		<div class="controls">
+			{{#if categories}}
+				<select name="category" id="category">
+					{{#each categories}}}
+					<option value="{{id}}" {{#compare ../field.category id}}selected{{/compare}}>{{name}}</option>
+					{{/each}}
+				</select>
+				<p class="help-block">{{#if errors.category}}{{errors.category.type}}{{/if}}</p>
+			{{/if}}
+		</div>
+	</div>
+	<div class="control-group {{#if errors.sections}}error{{/if}}">
+		<label class="control-label" for="sections">Sections</label>
+		<div class="controls">
+			{{#if sections}}
+				<div class="row">
+				{{#each sections}}
+					<div class="span3">
+						<label class="checkbox">
+							<input type="checkbox" name="sections" value="{{id}}"
+							{{#each ../field.sections}}
+								{{#compare this ../id}}checked{{/compare}}
+							{{/each}}
+							{{#with ../field.sections}}
+								{{#compare this ../id}}checked{{/compare}}
+							{{/with}}
+							 />{{name}}
+						</label>
+					</div>
+				{{/each}}
+				</div>
+				<p class="help-block">{{#if errors.sections}}{{errors.sections.type}}{{/if}}</p>
+			</select>
+			{{/if}}
+		</div>
+	</div>
+	<div class="control-group {{#if errors.format}}error{{/if}}">
+		<label class="control-label" for="format">Format</label>
+		<div class="controls">
+			{{#if formats}}
+				{{#each formats}}
+					<label class="radio inline">
+						<input type="radio" name="format" value="{{id}}" {{#compare ../field.format id}}checked{{/compare}} />{{name}}
+					</label>
+				{{/each}}
+				<p class="help-block">{{#if errors.format}}{{errors.format.type}}{{/if}}</p>
+			{{/if}}
+		</div>
+	</div>
+	<div class="control-group {{#if errors.quality}}error{{/if}}">
+		<label class="control-label" for="quality">Quality</label>
+		<div class="controls">
+			{{#if qualities}}
+				<select name="quality">
+					{{#each qualities}}
+					<option value="{{id}}" {{#compare ../field.quality id}}selected{{/compare}}>{{name}}</option>
+					{{/each}}
+				</select>
+				<p class="help-block">{{#if errors.quality}}{{errors.quality.type}}{{/if}}</p>
+			{{/if}}
+		</div>
+	</div>
+	<div class="form-actions">
+		<button type="submit" class="btn btn-primary btn-large">send</button>
+		<button type="reset" class="btn btn-default pull-right">reset</button>
+	</div>
+</form>
+
