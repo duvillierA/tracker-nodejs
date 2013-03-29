@@ -1,0 +1,52 @@
+<div class="widget widget-table action-table">
+						
+	<div class="widget-header clearfix">
+		<i class="icon-th-list"></i>
+		<h3>Files Options</h3>
+		<a href="/admin/files/options/new" class="btn btn-primary btn-small">ADD</a>
+		<a href="/admin/files/options" class="pull-right">see all</a>
+	</div> <!-- /widget-header -->
+
+	<div class="widget-content">	
+
+	{{#if files_options}}
+		<table class="table table-bordered table-striped table-condensed">
+			<thead>
+				<tr>
+					<th>Category</th>
+					<th>Type</th>
+					<th>Name</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+			{{#each files_options}}
+				<tr>
+					<td>
+						{{#each categories}}
+							{{name}}
+						{{/each}}
+					</td>
+					<td>
+						{{type}}
+					</td>
+					<td>
+						{{name}} {{infos}} 
+					</td>
+					<td>
+						<div class="text-right">
+							<a class="btn btn-default btn-mini">modify</a>
+							<a class="btn btn-default btn-mini">delete</a>
+						</div>
+					</td>
+				</tr>
+			{{/each}}
+			</tbody>
+		</table>
+	{{else}}
+		<div class="alert alert-info">
+		  <strong>Aucun résultats</strong>
+		</div>
+	{{/if}}
+	</div>
+</div>

@@ -1,0 +1,37 @@
+<div class="widget">
+						
+	<div class="widget-header clearfix">
+		<i class="icon-sitemap"></i>
+		<h3>Create a section</h3>
+	</div> <!-- /widget-header -->
+
+	<div class="widget-content">
+		<form method="post" action="/admin/sections/new" class="form-horizontal">
+
+			<div class="control-group">
+				<label class="control-label" for="name">Name</label>
+				<div class="controls">
+					<input type="text" name="name" placeholder="" class="span4" />
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="categories">Category (parent)</label>
+				<div class="controls">
+					{{#if categories}}
+						<select name="categories" class="span4">
+						{{#each categories}}
+							{{section.parent}}
+							<option type="checkbox" value="{{id}}">{{name}}</option>
+						{{/each}}
+						</select>
+					{{/if}}
+				</div>
+			</div>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary">send</button>
+			</div>
+		</form>
+	</div>
+</div>
+

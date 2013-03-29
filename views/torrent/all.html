@@ -1,0 +1,63 @@
+<h1>Files</h1>
+<a href="/torrent/new" class="btn btn-primary fr">new</a>
+
+{{#if categories}}
+	{{#each categories}}
+		{{#if this}}
+			<div class="row">
+				<div class="span12">
+					<h2>{{name}} <small>{{id}}</small></h2>
+				</div>
+
+				<div class="pull-right">
+					<a href="/category/{{id}}" class="btn btn-default">voir</a>
+				</div>
+			</div>
+			{{#if files}}
+				<table class="table table-bordered table-striped table-condensed">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Title</th>
+							<th>Description</th>
+							<th>Category</th>
+							<th>Type</th>
+						</tr>
+					</thead>
+				{{#each files}}
+					<tbody>
+						<tr>
+							<td>
+								{{createdAt}}
+							</td>
+							<td>
+								<a href="/torrent/{{id}}">{{title}}</a>
+							</td>
+							<td>
+								{{body}}
+							</td>
+							<td>
+								{{#each categories}}
+									<a href="/category/{{id}}">{{name}}</a>
+								{{/each}}
+								/
+								{{#each sections}}
+									<a href="/sections/{{id}}">{{name}}</a>
+								{{/each}}
+							</td>
+							<td>
+								the type
+							</td>
+						</tr>
+					</tbody>
+				{{/each}}
+				</table>
+			{{else}}
+				<div class="alert alert-info">
+				  <strong>Aucun résultats</strong>
+				  ajouter un torrent
+				</div>
+			{{/if}}
+		{{/if}}
+	{{/each}}
+{{/if}}

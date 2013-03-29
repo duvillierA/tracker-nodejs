@@ -1,0 +1,19 @@
+{{#if flash}}
+	{{#with flash}}
+	  	{{#if success}}
+			<div class="alert alert-success">
+				<strong>{{success}}</strong>
+			</div>
+	  	{{/if}}
+	  	{{#if info}}
+			<div class="alert alert-info">
+				<strong>{{info}}</strong>
+			</div>
+	  	{{/if}}
+	  	{{#if error}}
+			<div class="alert alert-error">
+				<strong>{{error}}</strong>
+			</div>
+	  	{{/if}}
+	{{/with}}
+{{/if}}

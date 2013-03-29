@@ -1,0 +1,53 @@
+<div class="widget widget-table action-table">
+						
+	<div class="widget-header clearfix">
+		<i class="icon-th-list"></i>
+		<h3>Categories</h3>
+		<a href="/admin/categories/new" class="btn btn-primary btn-small">ADD</a>
+		<a href="/admin/categories/" class="pull-right">see all</a>
+	</div> <!-- /widget-header -->
+
+	<div class="widget-content">
+
+	{{#if categories}}
+		<table class="table table-bordered table-striped table-condensed">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Slug</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+			{{#each categories}}
+				{{#if this}}
+					<tr>
+						<td>
+							{{id}}
+						</td>
+						<td>
+							{{name}}
+						</td>
+						<td>
+							{{slug}}
+						</td>
+						<td>
+							<div class="text-right">
+								<a class="btn btn-default btn-mini">modify</a>
+								<a class="btn btn-default btn-mini">delete</a>
+							</div>
+						</td>
+					</tr>
+				{{/if}}
+			{{/each}}
+			</tbody>
+		</table>
+	{{else}}
+		<div class="alert alert-info">
+		  <strong>Aucun résultats</strong>
+		</div>
+	{{/if}}
+
+	</div>
+</div>

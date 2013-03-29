@@ -1,0 +1,52 @@
+<div class="widget">
+						
+	<div class="widget-header clearfix">
+		<i class="icon-sitemap"></i>
+		<h3>Create a files options</h3>
+	</div> <!-- /widget-header -->
+
+	<div class="widget-content">
+
+	<form method="post" action="/admin/files/options/new" class="form-horizontal">
+
+			<div class="control-group">
+				<label class="control-label" for="name">Name</label>
+				<div class="controls">
+					<input type="text" name="name" placeholder="" class="span4" />
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="infos">Infos</label>
+				<div class="controls">
+					<input type="text" name="infos" placeholder="" class="span4" />
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="type">Type</label>
+				<div class="controls">
+					<input type="text" name="type" placeholder="format|language|quality|system|type" class="span4" />
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="categories">Category (parent)</label>
+				<div class="controls">
+					{{#if categories}}
+						{{#each categories}}
+							<label class="checkbox">
+								<input type="checkbox" name="categories" value="{{id}}">{{name}}
+							</label></option>
+						{{/each}}
+					</select>
+					{{/if}}
+				</div>
+			</div>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary">send</button>
+			</div>
+		</form>
+
+	</div>
+</div>

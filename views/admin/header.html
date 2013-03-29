@@ -1,0 +1,89 @@
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<a href="/admin" class="brand">Admin Panel</a>
+			<div class="btn-group pull-right">
+				{{#if session.user}}
+					<a href="/user/id/" class="btn btn-default btn-small">
+						{{session.user.username}}
+					</a>
+					<button data-toggle="dropdown" class="btn btn-default btn-small dropdown-toggle">
+					  <span class="caret">
+					  </span>
+					</button>
+					<ul class="dropdown-menu pull-right">
+					  <li>
+					    <a href="/user/{{session.user.id}}/">
+					      Edit Profile
+					    </a>
+					  </li>
+					  <li>
+					    <a href="/user/{{session.user.id}}/edit">
+					      Account Settings
+					    </a>
+					  </li>
+					  <li>
+					    <a href="/logout">
+					      Logout
+					    </a>
+					  </li>
+					</ul>
+				{{else}}
+					<a href="/login" class="btn btn-default">Login</a>
+					<a href="/register" class="btn btn-default">Register</a>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+</div>
+	
+<div class="subnavbar">
+
+	<div class="subnavbar-inner">
+	
+		<div class="container">
+
+			<ul class="mainnav">
+			
+				<li class="active">
+					<a href="/admin">
+						<i class="icon-dashboard"></i>
+						<span>Dashboard</span>
+					</a>	    				
+				</li>
+				
+				<li>
+					<a href="/admin/users">
+						<i class="icon-user"></i>
+						<span>Users</span>
+					</a>	    				
+				</li>
+				
+				<li>					
+					<a href="/admin/files">
+						<i class="icon-file"></i>
+						<span>Files</span>
+					</a>	  				
+				</li>
+				
+				<li class="dropdown subnavbar-open-right">
+					<a href="/admin/collections" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="icon-sitemap"></i>
+						<span>Collections</span>
+						<b class="caret"></b>
+					</a>   
+					<ul class="dropdown-menu"> 								
+						<li><a href="/admin/categories/">Categories</a></li>
+						<li><a href="/admin/sections/">Sections</a></li>
+						<li class="divider subnavbar-open-right"></li>
+						<li><a href="/admin/files/options">Files options</a></li>			
+					</ul>
+				</li>
+			
+			</ul>
+
+		</div> <!-- /container -->
+	
+	</div> <!-- /subnavbar-inner -->
+
+</div>

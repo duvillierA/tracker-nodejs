@@ -1,0 +1,83 @@
+<div class="widget widget-table action-table">
+						
+	<div class="widget-header clearfix">
+		<i class="icon-th-list"></i>
+		<h3>Files</h3>
+	</div> <!-- /widget-header -->
+
+	<div class="widget-content">
+
+	{{#if files}}
+		<table class="table table-bordered table-striped table-condensed">
+			<thead>
+				<tr>
+					<th>Category</th>
+					<th>Section</th>
+					<th>Title</th>
+					<th>Creator</th>
+					<th>Created</th>
+					<th>Modified</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+			{{#each files}}
+				{{#if this}}
+					<tr>
+						<td>
+							{{#if categories}}
+								{{#each categories}}
+									{{#if this}}
+										{{name}}
+									{{/if}}
+								{{/each}}
+							{{/if}}
+						</td>
+						<td>
+							{{#if sections}}
+								{{#each sections}}
+									{{#if this}}
+										{{name}}
+									{{/if}}
+								{{/each}}
+							{{/if}}
+						</td>
+						<td>
+							{{#if title}}
+								<strong>{{title}}</strong>
+							{{/if}}
+						</td>
+						<td>
+							{{#if creator}}
+								{{creator}}
+							{{/if}}
+						</td>
+						<td>
+							{{#if createdAt}}
+								{{createdAt}}
+							{{/if}}
+						</td>
+						<td>
+							{{#if modifiedAt}}
+								{{modifiedAt}}
+							{{/if}}
+						</td>
+						<td>
+							<div class="text-right">
+								<a class="btn btn-default btn-mini">modify</a>
+								<a class="btn btn-default btn-mini">delete</a>
+							</div>
+						</td>
+					</tr>
+				{{/if}}
+			{{/each}}
+			</tbody>
+		</table>
+	{{else}}
+		<div class="alert alert-info">
+		  <strong>Aucun résultats</strong>
+		</div>
+	{{/if}}
+
+	</div>
+</div>

@@ -1,0 +1,53 @@
+<form method="post" action="/torrent/new" class="form-horizontal">
+	<div class="control-group">
+		<label class="control-label" for="title">Title</label>
+		<div class="controls">
+			<input type="text" name="title" placeholder="Title XXX" />
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="body">Body</label>
+		<div class="controls">
+			<textarea type="text" name="body" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit."></textarea>
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="categories">Category</label>
+		<div class="controls">
+			{{#if categories}}
+			<select name="categories">
+				{{#each categories}}
+				<option value="{{id}}">{{name}}</option>
+				{{/each}}
+			</select>
+			{{/if}}
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="categories">Sections</label>
+		<div class="controls">
+			{{#if sections}}
+			<select name="sections">
+				{{#each sections}}
+				<option value="{{id}}">{{name}}</option>
+				{{/each}}
+			</select>
+			{{/if}}
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="type">Type</label>
+		<div class="controls">
+			{{#if type}}
+			<select name="type">
+				{{#each type}}
+				<option value="{{id}}">{{name}}</option>
+				{{/each}}
+			</select>
+			{{/if}}
+		</div>
+	</div>
+
+	<button type="submit">send</button>
+</form>
+
