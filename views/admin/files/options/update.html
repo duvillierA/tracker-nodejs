@@ -4,29 +4,29 @@
 		<i class="icon-sitemap"></i>
 		<h3>Create a files options</h3>
 	</div> <!-- /widget-header -->
-
 	<div class="widget-content">
+	<form method="post" action="/admin/files/options/{{id}}/update" class="form-horizontal">
 
-	<form method="post" action="/admin/files/options/new" class="form-horizontal">
+		<input type="hidden" name="put" value="/admin/files/options/{{id}}" />
 
 			<div class="control-group">
 				<label class="control-label" for="name">Name</label>
 				<div class="controls">
-					<input type="text" name="name" placeholder="" class="span4" />
+					<input type="text" name="name" placeholder="" class="span4" value="{{files_options.name}}" />
 				</div>
 			</div>
 
 			<div class="control-group">
 				<label class="control-label" for="infos">Infos</label>
 				<div class="controls">
-					<input type="text" name="infos" placeholder="" class="span4" />
+					<input type="text" name="infos" placeholder="" class="span4" value="{{files_options.infos}}" />
 				</div>
 			</div>
 
 			<div class="control-group">
 				<label class="control-label" for="type">Type</label>
 				<div class="controls">
-					<input type="text" name="type" placeholder="format, language, subtitle, quality" class="span4" />
+					<input type="text" name="type" placeholder="format, language, subtitle, quality" class="span4" value="{{files_options.type}}" />
 				</div>
 			</div>
 
@@ -36,9 +36,17 @@
 					{{#if categories}}
 						{{#each categories}}
 							<label class="checkbox">
-								<input type="checkbox" name="categories" value="{{id}}">{{name}}
+								<input type="checkbox" name="categories" value="{{id}}"
+								{{#each ../files_options.categories}}
+									{{#compare this ../id}}checked{{/compare}}
+								{{/each}}
+								{{#with ../files_options.categories}}
+									{{#compare this ../id}}checked{{/compare}}
+								{{/with}}
+								>{{name}}
 							</label></option>
 						{{/each}}
+					</select>
 					{{/if}}
 				</div>
 			</div>

@@ -34,34 +34,81 @@ exports.all = function(req, res, next){
 }
 
 exports.new = function(req, res, next){
+	var 
+		category = req.param('category') && req.param('category') !='' ? req.param('category'): undefined;
+	;
+
 	async.parallel({
 		categories : function (next) {
-			Categories.find(function(err, categories){
+			Categories.find()
+			.sort({name:'asc'})
+			.exec(function(err, categories){
 				if (err) { return next(err); }
 				next(null, categories);
 			});
 		},
-		sections : function (next) {
-			Sections.find(function(err, sections){
+		gender : function (next) {
+			if(category){
+				Sections.find({type:'gender'})
+				.where('categories').equals(category)
+				.sort({name:'asc'})
+				.exec(function(err, sections){
+					if (err) { return next(err); }
+					next(null, sections);
+				});
+			}else{
+				next(null);
+			}
+		},
+		system : function (next) {
+			Sections.find({type:'system'})
+			.where('categories').equals(category)
+			.sort({name:'asc'})
+			.exec(function(err, sections){
 				if (err) { return next(err); }
 				next(null, sections);
 			});
 		},
 		formats : function (next) {
-			FilesOptions.find({type:'format'}, function(err, formats){
+			FilesOptions.find({type:'format'})
+			.where('categories').equals(category)			
+			.sort({name:'asc'})
+			.exec(function(err, formats){
 				if (err) { return next(err); }
 				next(null, formats);
 			});
 		},
 		qualities : function (next) {
-			FilesOptions.find({type:'quality'}, function(err, qualities){
+			FilesOptions.find({type:'quality'})
+			.where('categories').equals(category)
+			.sort({name:'asc'})
+			.exec(function(err, qualities){
 				if (err) { return next(err); }
 				next(null, qualities);
+			});
+		},
+		languages : function (next) {
+			FilesOptions.find({type:'language'})
+			.where('categories').equals(category)
+			.sort({name:'asc'})
+			.exec(function(err, languages){
+				if (err) { return next(err); }
+				next(null, languages);
+			});
+		},
+		subtitles : function (next) {
+			FilesOptions.find({type:'subtitle'})
+			.where('categories').equals(category)
+			.sort({name:'asc'})
+			.exec(function(err, subtitles){
+				if (err) { return next(err); }
+				next(null, subtitles);
 			});
 		}
 	}, function (err, result) {
 		if (err) { return next(err); }   
 		res.data = result;
+		res.data.category = category;
 		next(null);
 	});
 }
@@ -81,34 +128,46 @@ exports.create = function(req, res, next){
 		_body = req.param('body'),
 		_category = req.param('category'),
 		_sections = req.param('sections'),
+		_gender = req.param('gender'),
+		_system = req.param('system'),
 		_format = req.param('format'),
-		_quality = req.param('quality')
+		_quality = req.param('quality'),
+		_languages = req.param('languages'),
+		_subtitles = req.param('subtitles')
 	; 
+
+	var file = new Files();
+
+	var fields = {
+		title: _title,
+		body: _body,
+		category: _category,
+		sections: _sections,
+		gender : _gender,
+		system : _system,
+		format: _format,
+		quality: _quality,
+		languages: _languages,
+		subtitles: _subtitles,
+		createdAt: Date.now(),
+		creator: req.user
+	};
+
+	for(var key in fields){
+		var field = fields[key];
+		if(field && field!="")
+			file[key] = field;
+	}
 
 	async.waterfall([
 	    function(next){
-			Files.create({
-				title: _title,
-				body: _body,
-				category: _category,
-				sections: _sections,
-				format: _format,
-				quality: _quality,
-				createdAt: Date.now(),
-				creator: req.user
-			},function(err, file){
+			file.save(function(err, file){
 				if (err) { 
 					if(err.name =='ValidationError') {
 						// handle error
-						res.field = {
-							title: _title,
-							body: _body,
-							category: _category,
-							sections: _sections,
-							format: _format,
-							quality: _quality
-						};
+						res.field = fields;
 						res.errors = err.errors;
+						console.log(res.errors);
 					}else{
 						return next(err);
 					}

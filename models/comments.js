@@ -12,6 +12,7 @@ COMMENTS
 		creator : { type: Schema.Types.ObjectId, ref: 'users' },
 		file : { type: Schema.Types.ObjectId, ref: 'files' },
 		body : String,
+		createdAt : Date,
 		hidden: {type : Boolean , default : false }
 	}, { _id: true, collection: 'sections'});
 

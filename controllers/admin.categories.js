@@ -8,7 +8,8 @@ var
 exports.all = function(req, res, next){
 	Categories.find(function(err, categories){
 		if (err) { return next(err); }
-		res.data = {categories:categories};
+		if(!res.data) res.data = {};
+		res.data.categories = categories;
 		next(null);
 	});
 }

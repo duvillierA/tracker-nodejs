@@ -9,9 +9,10 @@ SECTIONS
 */
 
 	var sectionsSchema = new Schema({
-		categories : { type: Schema.Types.ObjectId, ref: 'categories' },
+		categories : [{ type: Schema.Types.ObjectId, ref: 'categories' }],
 		name : { type : String, set : helpers.capitalize },
 		slug :  { type : String, lowercase: true, trim: true},
+		type :  { type : String, enum: ['system','gender']},
 		ancestors : [{ type: Schema.Types.ObjectId, ref: 'categories' }],
 		hidden: {type : Boolean , default : false }
 	}, { _id: true, collection: 'sections'});

@@ -58,7 +58,12 @@ module.exports = function (map, passport) {
 	map
 	.get('/admin/sections', admin_sections.all , function(req, res){
 		res.render('admin/sections/all',{
-			sections:res.data.sections
+			sections:res.data.sections,
+			flash : {
+				success : req.flash('success'),
+				info : req.flash('info'),
+				error : req.flash('error')
+			}
 		});
 	})
 	.get('/admin/sections/new', admin_categories.all , function(req, res){
@@ -74,6 +79,27 @@ module.exports = function (map, passport) {
 	.post('/admin/sections/new', admin_sections.create , function(req, res){
 		req.flash('success', res.data.section.name+', is now created!');
 		res.redirect('/admin/sections/new');
+	});
+
+	map.get('/admin/sections/:id', admin_sections.read, admin_categories.all, function(req, res){
+		res.render('admin/sections/new',{
+			id: req.params.id,
+			section: res.data.section,
+			categories: res.data.categories,
+			flash : {
+				success : req.flash('success'),
+				info : req.flash('info'),
+				error : req.flash('error')
+			}
+		});
+	});
+	map.post('/admin/sections/:id/update', admin_sections.update, function(req, res){
+		req.flash('success', res.data.section.name+', is now updated!');
+		res.redirect('/admin/sections');
+	});
+	map.get('/admin/sections/:id/delete', admin_sections.delete, function(req, res){
+		req.flash('success', res.data.section.name+', is now deleted!');
+		res.redirect('/admin/sections');
 	});
 
 	/*
@@ -95,7 +121,6 @@ module.exports = function (map, passport) {
 			files_options:res.data.files_options
 		});
 	})
-	map
 	.get('/admin/files/options/new', admin_categories.all , function(req, res){
 		res.render('admin/files/options/new',{
 			categories:res.data.categories,
@@ -109,8 +134,34 @@ module.exports = function (map, passport) {
 	.post('/admin/files/options/new', admin_files_options.create , function(req, res){
 		req.flash('success', res.data.options.name+', is now created!');
 		res.redirect('/admin/files/options/new')
+	})
+	map
+	.get('/admin/files/options/:id', admin_files_options.read, admin_categories.all, function(req, res){
+		res.render('admin/files/options/update',{
+			id : req.params.id,
+			categories:res.data.categories,
+			files_options:res.data.files_options,
+			flash : {
+				success : req.flash('success'),
+				info : req.flash('info'),
+				error : req.flash('error')
+			}
+		});
 	});
-
+	map.post('/admin/files/options/:id/update', admin_files_options.update, function(req, res){
+		req.flash('success', res.data.files_options.name+', is now updated!');
+		res.redirect('/admin/files/options/'+req.params.id);
+	});
+	map.post('/admin/files/options/:id/delete', admin_files_options.delete, function(req, res){
+		req.flash('success', res.data.files_options.name+', is now deleted!');
+		res.redirect('/admin');
+	});
+	map.put('/admin/files/options/:id', admin_files_options.update, function(req, res){
+		res.json({data:res.data.files_options});
+	});
+	map.delete('/admin/files/options/:id', admin_files_options.delete, function(req, res){
+		res.json({data:res.data.files_options});
+	});
 
 	/*
 	  Users	

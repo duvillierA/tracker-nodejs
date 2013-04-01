@@ -1,3 +1,17 @@
+<script>
+	$(document).ready(function(){
+		$("#category").change(function(e, elm){
+			console.log($(this).val());
+			if($(this).val().length>0)
+				window.location = '?category='+$(this).val(); // redirect
+			else
+				window.location = window.location.origin+window.location.pathname;
+
+		})	
+	})
+
+</script>
+
 {{#unless session.user}}
 	<div class="alert {{#if errors.creator}}alert-error{{else}}alert-info{{/if}}">
 		An account is required to create a document. Please
@@ -20,44 +34,23 @@
 			<p class="help-block">{{#if errors.body}}{{errors.body.type}}{{/if}}</p>
 		</div>
 	</div>
+{{#if categories}}		
 	<div class="control-group {{#if errors.category}}error{{/if}}">
 		<label class="control-label" for="category">Category</label>
 		<div class="controls">
 			{{#if categories}}
 				<select name="category" id="category">
+					<option value="" >Select a category</option>
 					{{#each categories}}}
-					<option value="{{id}}" {{#compare ../field.category id}}selected{{/compare}}>{{name}}</option>
+					<option value="{{id}}" {{#compare ../category id}}selected{{/compare}} {{#compare ../field.category id}}selected{{/compare}}>{{name}}</option>
 					{{/each}}
 				</select>
 				<p class="help-block">{{#if errors.category}}{{errors.category.type}}{{/if}}</p>
 			{{/if}}
 		</div>
 	</div>
-	<div class="control-group {{#if errors.sections}}error{{/if}}">
-		<label class="control-label" for="sections">Sections</label>
-		<div class="controls">
-			{{#if sections}}
-				<div class="row">
-				{{#each sections}}
-					<div class="span3">
-						<label class="checkbox">
-							<input type="checkbox" name="sections" value="{{id}}"
-							{{#each ../field.sections}}
-								{{#compare this ../id}}checked{{/compare}}
-							{{/each}}
-							{{#with ../field.sections}}
-								{{#compare this ../id}}checked{{/compare}}
-							{{/with}}
-							 />{{name}}
-						</label>
-					</div>
-				{{/each}}
-				</div>
-				<p class="help-block">{{#if errors.sections}}{{errors.sections.type}}{{/if}}</p>
-			</select>
-			{{/if}}
-		</div>
-	</div>
+{{/if}}	
+{{#if formats}}	
 	<div class="control-group {{#if errors.format}}error{{/if}}">
 		<label class="control-label" for="format">Format</label>
 		<div class="controls">
@@ -71,6 +64,8 @@
 			{{/if}}
 		</div>
 	</div>
+{{/if}}	
+{{#if qualities}}		
 	<div class="control-group {{#if errors.quality}}error{{/if}}">
 		<label class="control-label" for="quality">Quality</label>
 		<div class="controls">
@@ -84,6 +79,111 @@
 			{{/if}}
 		</div>
 	</div>
+{{/if}}	
+{{#if languages}}
+	<div class="control-group {{#if errors.languages}}error{{/if}}">
+		<label class="control-label" for="category">Languages</label>
+		<div class="controls">
+				<div class="row">
+					{{#each languages}}}
+						<div class="span3">
+							<label class="checkbox">
+								<input type="checkbox" name="languages" value="{{id}}"
+								{{#each ../field.languages}}
+									{{#compare this ../id}}checked{{/compare}}
+								{{/each}}
+								{{#with ../field.languages}}
+									{{#compare this ../id}}checked{{/compare}}
+								{{/with}}
+								 />{{infos}}
+							</label>
+						</div>
+					{{/each}}
+				</div>
+				<p class="help-block">{{#if errors.languages}}{{errors.languages.type}}{{/if}}</p>
+		</div>
+	</div>
+{{/if}}
+{{#if subtitles}}
+	<div class="control-group {{#if errors.subtitle}}error{{/if}}">
+		<label class="control-label" for="subtitle">Subtitles</label>
+		<div class="controls">
+			{{#if subtitles}}
+				<div class="row">
+					{{#each subtitles}}}
+						<div class="span3">
+							<label class="checkbox">
+								<input type="checkbox" name="subtitles" value="{{id}}"
+								{{#each ../field.subtitles}}
+									{{#compare this ../id}}checked{{/compare}}
+								{{/each}}
+								{{#with ../field.subtitles}}
+									{{#compare this ../id}}checked{{/compare}}
+								{{/with}}
+								 />{{infos}}
+							</label>
+						</div>
+					{{/each}}
+				</div>
+				<p class="help-block">{{#if errors.languages}}{{errors.languages.type}}{{/if}}</p>
+			{{/if}}
+		</div>
+	</div>
+{{/if}}	
+{{#if gender}}
+	<div class="control-group {{#if errors.gender}}error{{/if}}">
+		<label class="control-label" for="sections">Gender</label>
+		<div class="controls">
+			{{#if gender}}
+				<div class="row">
+				{{#each gender}}
+					<div class="span3">
+						<label class="checkbox">
+							<input type="checkbox" name="gender" value="{{id}}"
+							{{#each ../field.gender}}
+								{{#compare this ../id}}checked{{/compare}}
+							{{/each}}
+							{{#with ../field.gender}}
+								{{#compare this ../id}}checked{{/compare}}
+							{{/with}}
+							 />{{name}}
+						</label>
+					</div>
+				{{/each}}
+				</div>
+				<p class="help-block">{{#if errors.sections}}{{errors.sections.type}}{{/if}}</p>
+			</select>
+			{{/if}}
+		</div>
+	</div>
+{{/if}}	
+{{#if system}}
+	<div class="control-group {{#if errors.system}}error{{/if}}">
+		<label class="control-label" for="sections">System</label>
+		<div class="controls">
+			{{#if system}}
+				<div class="row">
+				{{#each system}}
+					<div class="span3">
+						<label class="checkbox">
+							<input type="checkbox" name="system" value="{{id}}"
+							{{#each ../field.system}}
+								{{#compare this ../id}}checked{{/compare}}
+							{{/each}}
+							{{#with ../field.system}}
+								{{#compare this ../id}}checked{{/compare}}
+							{{/with}}
+							 />{{name}}
+						</label>
+					</div>
+				{{/each}}
+				</div>
+				<p class="help-block">{{#if errors.sections}}{{errors.sections.type}}{{/if}}</p>
+			</select>
+			{{/if}}
+		</div>
+	</div>
+{{/if}}		
 	<div class="form-actions">
 		<button type="submit" class="btn btn-primary btn-large">send</button>
 		<button type="reset" class="btn btn-default pull-right">reset</button>

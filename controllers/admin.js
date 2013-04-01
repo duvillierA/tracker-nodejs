@@ -24,15 +24,10 @@ exports.all = function(req, res, next){
 				next(null, sections);
 			});
 		},
-		files : function (next) {
-			Files.find(function(err, files){
-				if (err) { return next(err); }
-				next(null, files);
-			});
-		},
 		files_options : function (next) {
 			FilesOptions.find()
 			.populate('categories')
+			.sort({type:'asc', name:'asc'})
 			.exec(function(err, options){
 				if (err) { return next(err); }
 				next(null, options);

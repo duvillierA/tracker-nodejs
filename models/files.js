@@ -3,11 +3,6 @@ var
 	Schema = mongoose.Schema,
 	helpers = require('../lib/helpers'),
 
-	categoriesSchema = require('./categories').schema,
-	sectionsSchema = require('./sections').schema,
-	filesOptionsSchema = require('./files_options').schema,
-	usersSchema = require('./users').schema,
-
 	Validator = require('validator').Validator,
 	val = new Validator(),
 	moment = require('moment')
@@ -20,24 +15,21 @@ FILES
 */
 
 	var filesSchema = new Schema({
-		category : { type: Schema.Types.ObjectId, ref: 'categories' },
-		sections : [{ type: Schema.Types.ObjectId, ref: 'sections' }],
+		category : { type: Schema.Types.ObjectId, ref: 'categories', required : true },
+		gender : [{ type: Schema.Types.ObjectId, ref: 'sections' }],
+		system : [{ type: Schema.Types.ObjectId, ref: 'sections' }],
 		format : { type: Schema.Types.ObjectId, ref: 'files_options' },
 		quality : { type: Schema.Types.ObjectId, ref: 'files_options' },
+		languages : [{ type: Schema.Types.ObjectId, ref: 'files_options' }],
+		subtitles : [{ type: Schema.Types.ObjectId, ref: 'files_options' }],
 		creator : { type: Schema.Types.ObjectId, ref: 'users' },
 		status : String,
 		link : String,
-		languages : [String],
 		title : { type : String, trim: true, required : true },
 		slug :  { type : String, lowercase: true, trim: true, set: helpers.slugify},
-		body : String,
+		body : { type : String, required : true },
 		size: { type: Number, min: 0 },
-		comments: [{
-			title : { type : String, trim: true },
-			body: String,
-			date : { type: Date, default: Date.now },
-			uid : Number 
-		}],
+		comments: [{ type: Schema.Types.ObjectId, ref: 'comments' }],
 		meta: {
 			greetz: { type: Number, min: 0},
 			votes: { type: Number, min: 0, max : 5 },
@@ -85,8 +77,14 @@ FILES
 	}, null);
 
 	filesSchema
-	.path('sections').validate(function(section) {
-		if (!section) this.invalidate('sections', 'Sections is required');
+	.path('gender').validate(function(gender) {
+		console.lg
+		if (!gender) this.invalidate('gender', 'Gender is required');
+	}, null);
+
+	filesSchema
+	.path('system').validate(function(system) {
+		if (!system) this.invalidate('system', 'System is required');
 	}, null);
 
 	filesSchema

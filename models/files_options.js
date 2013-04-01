@@ -13,7 +13,7 @@ FILES OPTIONS
 		name : { type : String, set : helpers.capitalize },
 		slug :  { type : String, lowercase: true, trim: true},
 		infos : String,
-		type :  { type : String, enum: ['format','language','quality','system','type']},
+		type :  { type : String, enum: ['format','language','quality','subtitle']},
 		ancestors : [{ type: Schema.Types.ObjectId, ref: 'categories' }],
 		hidden: {type : Boolean , default : false }
 	}, { _id: true, collection: 'files_options'});

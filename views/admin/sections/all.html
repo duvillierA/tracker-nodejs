@@ -14,6 +14,7 @@
 			<thead>
 				<tr>
 					<th>Category</th>
+					<th>type</th>
 					<th>Name</th>
 					<th>Slug</th>
 					<th>Actions</th>
@@ -24,10 +25,13 @@
 					<tr>
 						<td>
 							{{#if categories}}
-								{{#with categories}}
+								{{#each categories}}
 									{{name}}
-								{{/with}}
+								{{/each}}
 							{{/if}}
+						</td>
+						<td>
+							{{type}}
 						</td>
 						<td>
 							{{name}}
@@ -37,8 +41,8 @@
 						</td>
 						<td>
 							<div class="text-right">
-								<a class="btn btn-default btn-mini">modify</a>
-								<a class="btn btn-default btn-mini">delete</a>
+								<a href="/admin/sections/{{id}}" class="btn btn-default btn-mini">modify</a>
+								<a href="/admin/sections/{{id}}/delete" class="btn btn-default btn-mini">delete</a>
 							</div>
 						</td>
 					</tr>
