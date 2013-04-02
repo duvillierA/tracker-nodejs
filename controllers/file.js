@@ -8,32 +8,11 @@ var
 ;
 
 exports.all = function(req, res, next){
-	Categories.find(function(err, categories){
-		res.categories = [];
-		async.eachSeries(categories, function(category, next){
-			if(!category.hidden && category.index.visible){
-	    		Files.find()
-				.where('categories').elemMatch({ _id: category.id})
-		    	.sort({created: 'desc'})
-		    	.limit(10).exec(function(err, files){
-					if (err) { return next(err); };
-					res.categories.push({
-						name : category.name,
-						id : category.id,
-						files : files
-					});
-					next(null);
-				});
-			}
-		}, function(err){
-			if (err) { return next(err); };
-			next(null);
-		    // if any of the saves produced an error, err would equal that error
-		});
-	})
+	next(null);
 }
 
 exports.new = function(req, res, next){
+	
 	var 
 		category = req.param('category') && req.param('category') !='' ? req.param('category'): undefined;
 	;
@@ -107,7 +86,10 @@ exports.new = function(req, res, next){
 		}
 	}, function (err, result) {
 		if (err) { return next(err); }   
-		res.data = result;
+		if(!res.data) res.data = {};
+		for(var key in result){
+			res.data[key] = result[key];	
+		}
 		res.data.category = category;
 		next(null);
 	});
@@ -177,8 +159,9 @@ exports.create = function(req, res, next){
 			});
 	    }
 	], function (err, file) {
-		if (err) { return next(err); }  
-		res.data = {file:file}; 
+		if (err) { return next(err); } 
+		if(!res.data) res.data = {}; 
+		res.data.file = file; 
 		next(null);
 	});
 }

@@ -8,20 +8,16 @@ module.exports = function (map, passport) {
 		res.render('files/all', {categories:res.categories});
 	});
 	map.get('/files/new', file.new, function(req, res){
-		res.data.errors = req.flash('errors')[0];
-		res.data.field = req.flash('field')[0];
-		res.data.flash = {
-			success : req.flash('success'),
-			info : req.flash('info'),
-			error : req.flash('error')
-		};
 		res.render('files/new', res.data);
 	});
-	map.post('/files/new', file.create, function(req, res){
+	map.post('/files/new', file.new, file.create, function(req, res){
 		if(res.errors){
-			req.flash('errors', res.errors);
+/*			req.flash('errors', res.errors);
 			req.flash('field', res.field);
-			return res.redirect('/files/new');
+			return res.redirect('/files/new');*/
+			res.data.errors = res.errors;
+			res.data.field = res.field;
+			return res.render('files/new', res.data);
 		};
 		req.flash('success', res.data.file.title+', is now created!');
 		res.redirect('/');

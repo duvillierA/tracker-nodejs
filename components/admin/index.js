@@ -107,6 +107,7 @@ module.exports = function (map, passport) {
 	*/
 	map
 	.get('/admin/files', admin_files.all , function(req, res){
+		console.log("routes", res.data.files);
 		res.render('admin/files/all',{
 			files:res.data.files
 		});

@@ -9,8 +9,7 @@ var
 
 exports.all = function(req, res, next){
 	Files.find()
-		.populate('category sections format quality creator')
-		.sort({created: 'desc'})
+		.populate('category gender system format quality subtitles languages creator')
 			.limit(50)
 				.exec(function(err, files){
 					if (err) { return next(err); };

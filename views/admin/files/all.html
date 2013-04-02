@@ -12,7 +12,10 @@
 			<thead>
 				<tr>
 					<th>Category</th>
-					<th>Section</th>
+					<th>Gender</th>
+					<th>System</th>
+					<th>Languages</th>
+					<th>Subtitles</th>
 					<th>Format</th>
 					<th>Quality</th>
 					<th>Title</th>
@@ -34,9 +37,35 @@
 							{{/if}}
 						</td>
 						<td>
-							
-							{{#if sections}}
-								{{#each sections}}
+							{{#if gender}}
+								{{#each gender}}
+									{{#if this}}
+										{{name}}
+									{{/if}}
+								{{/each}}
+							{{/if}}
+						</td>
+						<td>
+							{{#if system}}
+								{{#each system}}
+									{{#if this}}
+										{{name}}
+									{{/if}}
+								{{/each}}
+							{{/if}}
+						</td>
+						<td>
+							{{#if languages}}
+								{{#each languages}}
+									{{#if this}}
+										{{name}}
+									{{/if}}
+								{{/each}}
+							{{/if}}
+						</td>
+						<td>
+							{{#if subtitles}}
+								{{#each subtitles}}
 									{{#if this}}
 										{{name}}
 									{{/if}}

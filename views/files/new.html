@@ -1,12 +1,7 @@
 <script>
 	$(document).ready(function(){
 		$("#category").change(function(e, elm){
-			console.log($(this).val());
-			if($(this).val().length>0)
-				window.location = '?category='+$(this).val(); // redirect
-			else
-				window.location = window.location.origin+window.location.pathname;
-
+			$("form").submit();
 		})	
 	})
 
