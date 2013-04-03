@@ -17,6 +17,7 @@
     "passport": "~0.1.16",
     "hbsc": "0.0.4",
     "moment": "~2.0.0",
-    "underscore": "~1.4.4"
+    "underscore": "~1.4.4",
+    "bootstrap": "git+https://github.com/twitter/bootstrap.git#v2.3.1"
   }
 }
