@@ -1,11 +1,26 @@
 var file = require('../../controllers/file');
 
-module.exports = function (map, passport) {
+module.exports = function (map, passport, helpers) {
 	/*
 	 Files MAPPING 	
 	*/
-	map.get('/', file.all, function(req, res){
-		res.render('files/all', {categories:res.categories});
+	map.get('/', file.latest, function(req, res){
+		res.render('files/all', {
+			categories:{
+				test: {
+					files:res.data.files
+				}
+			}
+		});
+	});
+	map.get('/files', file.latest, function(req, res){
+		res.render('files/all', {
+			categories:{
+				test: {
+					files:res.data.files
+				}
+			}
+		});
 	});
 	map.get('/files/new', file.new, function(req, res){
 		res.render('files/new', res.data);

@@ -8,7 +8,7 @@ var
  * Define all routes inside components dir
  */
 
-module.exports = function (app) {
+module.exports = function (app, helpers) {
 
 	fs.readdir(__dirname, function(err, files){
         
@@ -18,7 +18,7 @@ module.exports = function (app) {
             (function(){
                 var reference = path.join(__dirname, files[len]);
                 fs.stat(reference, function(err, stats){
-                    if (stats.isDirectory()) require(reference)(app, passport);
+                    if (stats.isDirectory()) require(reference)(app, passport, helpers);
                 });
             }());
         }

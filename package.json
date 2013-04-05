@@ -6,9 +6,9 @@
     "start": "node app"
   },
   "dependencies": {
-    "express": "3.1.0",
+    "express": "~3.1.0",
     "less-middleware": "*",
-    "hbs": "~2.0.2",
+    "hbs": "~2.1.0",
     "mongoose": "~3.6.1",
     "async": "~0.2.6",
     "bcrypt-nodejs": "0.0.3",

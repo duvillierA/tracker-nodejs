@@ -16,12 +16,7 @@ module.exports = function (map, passport) {
 			sections : res.data.sections,
 			files : res.data.files,
 			files_options : res.data.files_options,
-			users : res.data.users,
-			flash : {
-				success : req.flash('success'),
-				info : req.flash('info'),
-				error : req.flash('error')
-			}
+			users : res.data.users
 		});
 	});
 
@@ -38,12 +33,7 @@ module.exports = function (map, passport) {
 	map
 	.get('/admin/categories/new', admin_categories.all , function(req, res){
 		res.render('admin/categories/new',{
-			categories:res.data.categories,
-			flash : {
-				success : req.flash('success'),
-				info : req.flash('info'),
-				error : req.flash('error')
-			}
+			categories:res.data.categories
 		});
 	})
 	.post('/admin/categories/new', admin_categories.create , function(req, res){
@@ -58,22 +48,12 @@ module.exports = function (map, passport) {
 	map
 	.get('/admin/sections', admin_sections.all , function(req, res){
 		res.render('admin/sections/all',{
-			sections:res.data.sections,
-			flash : {
-				success : req.flash('success'),
-				info : req.flash('info'),
-				error : req.flash('error')
-			}
+			sections:res.data.sections
 		});
 	})
 	.get('/admin/sections/new', admin_categories.all , function(req, res){
 		res.render('admin/sections/new',{
-			categories:res.data.categories,
-			flash : {
-				success : req.flash('success'),
-				info : req.flash('info'),
-				error : req.flash('error')
-			}
+			categories:res.data.categories
 		});
 	})
 	.post('/admin/sections/new', admin_sections.create , function(req, res){
@@ -85,12 +65,7 @@ module.exports = function (map, passport) {
 		res.render('admin/sections/new',{
 			id: req.params.id,
 			section: res.data.section,
-			categories: res.data.categories,
-			flash : {
-				success : req.flash('success'),
-				info : req.flash('info'),
-				error : req.flash('error')
-			}
+			categories: res.data.categories
 		});
 	});
 	map.post('/admin/sections/:id/update', admin_sections.update, function(req, res){

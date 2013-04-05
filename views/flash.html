@@ -2,17 +2,23 @@
 	{{#with flash}}
 	  	{{#if success}}
 			<div class="alert alert-success">
-				<strong>{{success}}</strong>
+				<div class="container">
+					<strong>{{success}}</strong>
+				</div>
 			</div>
 	  	{{/if}}
 	  	{{#if info}}
 			<div class="alert alert-info">
-				<strong>{{info}}</strong>
+				<div class="container">
+					<strong>{{info}}</strong>
+				</div>
 			</div>
 	  	{{/if}}
 	  	{{#if error}}
 			<div class="alert alert-error">
-				<strong>{{error}}</strong>
+				<div class="container">
+					<strong>{{error}}</strong>
+				</div>
 			</div>
 	  	{{/if}}
 	{{/with}}

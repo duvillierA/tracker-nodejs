@@ -37,13 +37,9 @@
 								{{body}}
 							</td>
 							<td>
-								{{#each categories}}
+								{{#with category}}
 									<a href="/category/{{id}}">{{name}}</a>
-								{{/each}}
-								/
-								{{#each sections}}
-									<a href="/sections/{{id}}">{{name}}</a>
-								{{/each}}
+								{{/with}}
 							</td>
 							<td>
 								the type
@@ -55,7 +51,7 @@
 			{{else}}
 				<div class="alert alert-info">
 				  <strong>Aucun résultats</strong>
-				  ajouter un fichier
+				  <a href="/files/new" class="btn btn-default">ajouter un fichier</a>
 				</div>
 			{{/if}}
 			</div>

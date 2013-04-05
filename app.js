@@ -22,7 +22,7 @@ function createApp(config) {
     middleware(app, helpers);
     /* Partials && view helpers*/
     hbs(app);
-    components(app)
+    components(app, helpers)
 
     return app;
 }

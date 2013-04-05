@@ -7,14 +7,41 @@ var
 	Sections = require('../models/sections.js')
 ;
 
+exports.latest = function(req, res, next){
+	var category = req.params.category || undefined;
+	if(category){
+		Files.find()
+		.where('category').equals(category)
+		.populate('category gender system format quality subtitles languages')
+		.sort({createdAt:'desc'})
+		.limit(50)
+		.exec(function(err, files){
+			if(!res.data) res.data = {};
+			res.data.files = files;
+			next(null);
+		})
+	}else{
+		Files.find()
+		.populate('category gender system format quality subtitles languages')
+		.sort({createdAt:'desc'})
+		.limit(50)
+		.exec(function(err, files){
+			if(!res.data) res.data = {};
+			res.data.files = files;
+			next(null);
+		})
+	}
+}
+
 exports.all = function(req, res, next){
 	next(null);
 }
 
+
 exports.new = function(req, res, next){
 	
 	var 
-		category = req.param('category') && req.param('category') !='' ? req.param('category'): undefined;
+		category = req.param('category') || undefined;
 	;
 
 	async.parallel({
@@ -149,7 +176,6 @@ exports.create = function(req, res, next){
 						// handle error
 						res.field = fields;
 						res.errors = err.errors;
-						console.log(res.errors);
 					}else{
 						return next(err);
 					}
