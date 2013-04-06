@@ -3,7 +3,7 @@
 
 // Links
 // -------------------------
-@linkColor: #f46447;
+@linkColor: #2FB1E9;
 @linkColorHover: darken(@linkColor, 10%);
 
 // Buttons
@@ -11,8 +11,17 @@
 @btnBackground: @white;
 @btnBackgroundHighlight: darken(@white, 5%);
 
-@btnPrimaryBackground: @linkColor;
-@btnPrimaryBackgroundHighlight: darken(@linkColor, 18%);
+@btnPrimaryBackground: #f46447;
+@btnPrimaryBackgroundHighlight: darken(@btnPrimaryBackground, 18%);
 
+@btnSecondaryBackground: #ecd399;
+@btnSecondaryBackgroundHighlight: darken(@btnSecondaryBackground, 18%);
 
-@errorText: darken(@linkColor, 18%);
+@errorText: rgba(252, 48, 48, 0.9);
+@successText: rgba(118, 221, 49, 0.9);
+@infoText: rgba(41, 192, 240, 0.9);
+
+@tableBackground:                   transparent; // overall background-color
+@tableBackgroundAccent:             #FAFBFD; // for striping
+@tableBackgroundHover:              lighten(#A7BBE7,18%); // for hover
+@tableBorder:  rgba(213, 213, 213, 0.3);

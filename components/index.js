@@ -24,5 +24,8 @@ module.exports = function (app, helpers) {
         }
     });
 
+    app.get('/dev', function(req,res){
+        res.render('dev');
+    })
 
 };

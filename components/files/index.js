@@ -5,6 +5,7 @@ module.exports = function (map, passport, helpers) {
 	 Files MAPPING 	
 	*/
 	map.get('/', file.latest, function(req, res){
+		console.log(res.data.files);
 		res.render('files/all', {
 			categories:{
 				test: {

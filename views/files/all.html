@@ -37,9 +37,11 @@
 								{{body}}
 							</td>
 							<td>
-								{{#with category}}
-									<a href="/category/{{id}}">{{name}}</a>
-								{{/with}}
+								{{#if category}}
+									{{#with category}}
+										<a href="/category/{{id}}">{{name}}</a>
+									{{/with}}
+								{{/if}}
 							</td>
 							<td>
 								the type
