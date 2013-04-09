@@ -15,8 +15,61 @@
 
 <div class="span9">
 
-<h2>Search</h2>
+<h2>Form</h2>
 
+
+<form method="post" action="/files/new" class="form-inline widget">
+	<div class="widget-content">
+		<div class="control-group {{#if errors.title}}error{{/if}}">
+			<label class="control-label" for="title">Title</label>
+			<div class="controls">
+				<input type="text" name="title" id="title" value="{{field.title}}" class="input-block-level" autofocus/>
+			</div>
+		</div>
+		<div class="control-group {{#if errors.body}}error{{/if}}">
+			<label class="control-label" for="body">Body</label>
+			<div class="controls">
+				<textarea type="text" name="body" id="body" rows="10" class="input-block-level">{{field.body}}</textarea>
+				<p class="help-block">help block tect</p>
+			</div>
+		</div>	
+		<div class="control-group {{#if errors.quality}}error{{/if}}">
+			<label class="control-label" for="quality">select</label>
+			<div class="controls">
+				<select name="quality">
+					<option>select label</option>
+					<option>select label</option>
+				</select>
+			</div>
+		</div>
+		<div class="control-group {{#if errors.languages}}error{{/if}}">
+			<label class="control-label" for="category">radio</label>
+			<div class="controls">
+				<label class="radio">
+					<input type="radio" name="languages" value="{{id}}"/> radio label
+				</label>
+				<label class="radio">
+					<input type="radio" name="languages" value="{{id}}"/> radio label
+				</label>
+			</div>
+		</div>
+		<div class="control-group {{#if errors.languages}}error{{/if}}">
+			<label class="control-label" for="category">checkbox</label>
+			<div class="controls">
+				<label class="checkbox">
+					<input type="checkbox" name="languages" value="{{id}}"/> checkbox label
+				</label>
+			</div>
+		</div>
+	</div>
+	<div class="widget-footer">
+		<div class="form-actions">
+			<a href="" class="btn btn-primary">btn-primary</a>
+		</div>
+	</div>
+</form>
+
+<h3 class="">search</h3>
 <form class="">
 	<div class="input-append">
 		<i class="icon-search"></i>

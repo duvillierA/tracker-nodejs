@@ -3,11 +3,46 @@
 @inputBorder: #ccc;
 
 input {
-	background:darken(@inputBackground,0%);
 	&:hover {
 	}
 	&:focus {
 		border-color:@inputBorder;
 		.box-shadow(inset 0 1px 1px rgba(0,0,0,.3));
 	}
+}
+
+.widget {
+	.form-actions {
+		background:none;
+		padding:0;
+		margin:5px 0;
+	}
+	&.form-horizontal {
+		.form-actions {
+			padding-left:@horizontalComponentOffset;
+		}
+	}
+}
+
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+  // Focus state
+  &:focus {
+    border-color: rgba(222,178,76,.7);
+    .box-shadow(~"inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(222,178,76,.6)");
+  }
 }

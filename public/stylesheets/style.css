@@ -8069,7 +8069,7 @@ a.badge:focus {
   padding: 4px 3px 3px 3px;
   margin: 0 0 20px 0;
   background: rgba(0, 0, 0, 0.07);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
@@ -8157,7 +8157,6 @@ a.badge:focus {
   line-height: 16px;
   display: inline-block;
   margin: 0 3em 0 0;
-  letter-spacing: 0.8px;
   text-transform: uppercase;
   font-size: 14px;
   color: #fff;
@@ -8223,7 +8222,6 @@ a.badge:focus {
 .widget .widget-footer {
   *zoom: 1;
   padding: 8px 13px 5px 13px;
-  text-align: right;
 }
 .widget .widget-footer:before,
 .widget .widget-footer:after {
@@ -8666,14 +8664,40 @@ a.badge:focus {
   color: #fff;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 }
-input {
-  background: #ffffff;
-}
 input:focus {
   border-color: #cccccc;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.3);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.widget .form-actions {
+  background: none;
+  padding: 0;
+  margin: 5px 0;
+}
+.widget.form-horizontal .form-actions {
+  padding-left: 180px;
+}
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  border-color: rgba(222, 178, 76, 0.7);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(222,178,76,.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(222,178,76,.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(222,178,76,.6);
 }
 body {
   background: url(/images/background.png) repeat;
