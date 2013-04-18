@@ -54,17 +54,16 @@ exports.new = function(req, res, next){
 			});
 		},
 		gender : function (next) {
-			if(category){
-				Sections.find({type:'gender'})
-				.where('categories').equals(category)
-				.sort({name:'asc'})
-				.exec(function(err, sections){
-					if (err) { return next(err); }
-					next(null, sections);
-				});
-			}else{
-				next(null);
-			}
+			if(!category) return next(null);
+
+			Sections.find({type:'gender'})
+			.where('categories').equals(category)
+			.sort({name:'asc'})
+			.exec(function(err, sections){
+				if (err) { return next(err); }
+				next(null, sections);
+			});
+
 		},
 		system : function (next) {
 			Sections.find({type:'system'})
@@ -132,39 +131,27 @@ exports.read = function(req, res, next){
 
 exports.create = function(req, res, next){
 
-	var 
-		_title = req.param('title'),
-		_body = req.param('body'),
-		_category = req.param('category'),
-		_sections = req.param('sections'),
-		_gender = req.param('gender'),
-		_system = req.param('system'),
-		_format = req.param('format'),
-		_quality = req.param('quality'),
-		_languages = req.param('languages'),
-		_subtitles = req.param('subtitles')
-	; 
-
 	var file = new Files();
 
 	var fields = {
-		title: _title,
-		body: _body,
-		category: _category,
-		sections: _sections,
-		gender : _gender,
-		system : _system,
-		format: _format,
-		quality: _quality,
-		languages: _languages,
-		subtitles: _subtitles,
+		title: req.param('title'),
+		body: req.param('body'),
+		nfo : req.files ? req.files.nfo : null,
+		category: req.param('category'),
+		sections: req.param('sections'),
+		gender : req.param('gender'),
+		system : req.param('system'),
+		format: req.param('format'),
+		quality: req.param('quality'),
+		languages: req.param('languages'),
+		subtitles: req.param('subtitles'),
 		createdAt: Date.now(),
 		creator: req.user
 	};
 
 	for(var key in fields){
 		var field = fields[key];
-		if(field && field!="")
+		if(field)
 			file[key] = field;
 	}
 
