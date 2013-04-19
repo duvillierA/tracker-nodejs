@@ -28,7 +28,7 @@ FILES
 		link : String,
 		title : { type : String, trim: true, required : true },
 		slug :  { type : String, lowercase: true, trim: true, set: helpers.slugify},
-		body : { type : String, required : true },
+		body : String,
 		nfo : { type : Schema.Types.Mixed, required : true },
 		size: { type: Number, min: 0 },
 		comments: [{ type: Schema.Types.ObjectId, ref: 'comments' }],
@@ -69,20 +69,33 @@ FILES
 
 	filesSchema
 	.path('nfo').validate(function(file) {
-		console.log("nfo validate", file)
-		if (helpers.getExtension(file.name) != "nfo" && helpers.getExtension(file.name) != "txt") return this.invalidate('nfo', '.nfo or .txt extension is expected.');
+		if (helpers.getExtension(file.name) != "nfo" && helpers.getExtension(file.name) != "txt") {
+			fs.unlinkSync(file.path);
+			this.invalidate('nfo', '.nfo or .txt extension is expected.');
+		}
 	}, null);
 
-/*	filesSchema.path('nfo').set(function (nfo) {
-		this._nfo = nfo;
-		if(!nfo) return;
-		var path = nfo.path.split("/").slice(-2).join("/");
-		fs.readFile(path, function (err, data) {
-		  if (err) throw err;
-		  console.dir("file read", data)
-		  this.body = data;
+	filesSchema.static('readnfo', function (nfo, next) {
+
+		if(!nfo) return next(null, false);
+		if(nfo.size == 0) return next(null, false);
+
+		var path = nfo.path;
+		fs.exists(path, function(exists) {
+	  		if (!exists) return next(null, false);
+			fs.stat(path, function(error, stats) {
+			  fs.open(path, "r", function(error, fd) {
+			    var buffer = new Buffer(stats.size);
+			    fs.read(fd, buffer, 0, buffer.length, null, function(error, bytesRead, buffer) {
+			      var data = buffer.toString("binary", 0, buffer.length);
+			      fs.close(fd);
+			      next(null, data);
+			    });
+			  });
+			});
 		});
-	});*/
+
+	});
 
 	filesSchema
 	.path('body').validate(function(body) {

@@ -4,7 +4,8 @@ var
 	Categories = require('../models/categories.js'),
 	Files = require('../models/files.js'),
 	FilesOptions = require('../models/files_options.js'),
-	Sections = require('../models/sections.js')
+	Sections = require('../models/sections.js'),
+	fs = require('fs');
 ;
 
 exports.latest = function(req, res, next){
@@ -124,8 +125,12 @@ exports.new = function(req, res, next){
 exports.read = function(req, res, next){
 	Files.findById(req.params.id,function(err, file){
 		if (err) { return next(err);}
-	 	res.file = file;
-		next(null);	
+		Files.readnfo(file.nfo, function(err, data){
+			if (err) { return next(err);}
+			if (data) file.body = data;
+		 	res.file = file;
+			next(null);	
+		})
 	});
 }
 
@@ -135,8 +140,7 @@ exports.create = function(req, res, next){
 
 	var fields = {
 		title: req.param('title'),
-		body: req.param('body'),
-		nfo : req.files ? req.files.nfo : null,
+		nfo : req.files && req.files.nfo  ? req.files.nfo : null,
 		category: req.param('category'),
 		sections: req.param('sections'),
 		gender : req.param('gender'),
@@ -149,9 +153,11 @@ exports.create = function(req, res, next){
 		creator: req.user
 	};
 
+	res.field = fields;
+
 	for(var key in fields){
 		var field = fields[key];
-		if(field)
+		if(field && field !="")
 			file[key] = field;
 	}
 
@@ -161,13 +167,12 @@ exports.create = function(req, res, next){
 				if (err) { 
 					if(err.name =='ValidationError') {
 						// handle error
-						res.field = fields;
+						console.log(err.errors);
 						res.errors = err.errors;
 					}else{
 						return next(err);
 					}
 				 }
-
 				next(null, file);
 			});
 	    }

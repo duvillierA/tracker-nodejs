@@ -26,14 +26,13 @@
 						<p class="help-block">{{#if errors.title}}{{errors.title.type}}{{/if}}</p>
 					</div>
 				</div>
-				<div class="control-group {{#if errors.body}}error{{/if}}">
-					<label class="control-label" for="body">Body</label>
-					<div class="controls">
-						<textarea type="text" name="body" id="body" rows="10" class="input-block-level">{{field.body}}</textarea>
-						<p class="help-block">{{#if errors.body}}{{errors.body.type}}{{/if}}</p>
-					</div>
-				</div>
-				{{field.nfo.path}}
+<!-- 				<div class="control-group {{#if errors.body}}error{{/if}}">
+	<label class="control-label" for="body">Body</label>
+	<div class="controls">
+		<textarea type="text" name="body" id="body" rows="10" class="input-block-level">{{field.body}}</textarea>
+		<p class="help-block">{{#if errors.body}}{{errors.body.type}}{{/if}}</p>
+	</div>
+</div> -->
 				<div class="control-group {{#if errors.nfo}}error{{/if}}">
 					<label class="control-label" for="body">NFO</label>
 					<div class="controls">
@@ -41,6 +40,18 @@
 						<p class="help-block">{{#if errors.nfo}}{{errors.nfo.type}}{{/if}}</p>
 					</div>
 				</div>
+
+				{{#if field.body}}
+				<div class="control-group">	
+					<label class="control-label" for="body">NFO preview</label>
+					<div class="controls">
+						<pre>
+							{{field.body}}
+						</pre>
+					</div>
+				</div>
+				{{/if}}
+
 			{{#if categories}}		
 				<div class="control-group {{#if errors.category}}error{{/if}}">
 					<label class="control-label" for="category">Category</label>
